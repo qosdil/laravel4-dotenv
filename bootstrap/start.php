@@ -24,11 +24,14 @@ $app = new Illuminate\Foundation\Application;
 |
 */
 
-$env = $app->detectEnvironment(array(
+require_once __DIR__.'/../app/helpers.php';
+$dotenv = new Dotenv\Dotenv(__DIR__.'/..');
+$dotenv->load();
 
-	'local' => array('homestead'),
-
-));
+$env = $app->detectEnvironment(function()
+{
+    return env('APP_ENV', 'production');
+});
 
 /*
 |--------------------------------------------------------------------------
