@@ -11,6 +11,22 @@
 |
 */
 
+Route::get('env-test', function()
+{
+    return [
+        'App::environment()'  => App::environment(),
+        'getenv(\'APP_ENV\')' => getenv('APP_ENV'),
+        '$_ENV[\'APP_ENV\']'  => @$_ENV['APP_ENV'],
+        'Database configs'    => [
+            'DB_CONNECTION' => Config::get('database.default'),
+            'DB_HOST' => Config::get('database.connections.mysql.host'),
+            'DB_DATABASE' => Config::get('database.connections.mysql.database'),
+            'DB_USERNAME' => Config::get('database.connections.mysql.username'),
+            'DB_PASSWORD' => Config::get('database.connections.mysql.password'),
+        ],
+    ];
+});
+
 Route::get('/', function()
 {
 	return View::make('hello');
